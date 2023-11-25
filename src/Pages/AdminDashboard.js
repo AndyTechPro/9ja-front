@@ -10,7 +10,7 @@ export default function AdminDashboard() {
   const [newCategory, setNewCategory] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:4000/post", {
+    fetch("https://ninejaback.onrender.com/post", {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -19,7 +19,7 @@ export default function AdminDashboard() {
       })
       .catch((error) => console.error("Error fetching posts:", error));
 
-    fetch("http://localhost:4000/profile", {
+    fetch("https://ninejaback.onrender.com/profile", {
       credentials: "include",
     })
       .then((response) => response.json())
@@ -37,7 +37,7 @@ export default function AdminDashboard() {
 
   const handleCreateCategory = () => {
     // Send a request to create a new category
-    fetch('http://localhost:4000/categories', {
+    fetch('https://ninejaback.onrender.com/categories', {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ export default function AdminDashboard() {
 
   const fundelete = (id) => {
     if (window.confirm("Do you want to delete this post?")) {
-      fetch(`http://localhost:4000/delete-post/${id}`, {
+      fetch(`https://ninejaback.onrender.com/delete-post/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",

@@ -13,7 +13,7 @@ export default function HomePage2() {
       return;
     }
 
-    const response = await fetch(`http://localhost:4000/homepage2?page=${nextPage}`);
+    const response = await fetch(`https://ninejaback.onrender.com/homepage2?page=${nextPage}`);
     const data = await response.json();
 
     // Sort posts by views in descending order
@@ -32,7 +32,7 @@ export default function HomePage2() {
   }, []);
 
   const fetchPosts = async () => {
-    const response = await fetch(`http://localhost:4000/homepage2?page=1`);
+    const response = await fetch(`https://ninejaback.onrender.com/homepage2?page=1`);
     const data = await response.json();
 
     // Sort posts by views in descending order

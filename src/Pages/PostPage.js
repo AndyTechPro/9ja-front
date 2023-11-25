@@ -11,7 +11,7 @@ export default function PostPage() {
 
   useEffect(() => {
     // Fetch current post
-    fetch(`http://localhost:4000/post/${id}`)
+    fetch(`https://ninejaback.onrender.com/post/${id}`)
       .then((response) => response.json())
       .then((postInfo) => {
         setPostInfo(postInfo);
@@ -29,7 +29,7 @@ export default function PostPage() {
   const fetchRelatedPosts = async (title, category) => {
     try {
       // Fetch related posts based on title or category
-      const response = await axios.get(`http://localhost:4000/related-posts?title=${title}&category=${category}`);
+      const response = await axios.get(`https://ninejaback.onrender.com/related-posts?title=${title}&category=${category}`);
       
       // Exclude the current post from the related posts
       const filteredRelatedPosts = response.data.filter(relatedPost => relatedPost._id !== id);
@@ -44,7 +44,7 @@ export default function PostPage() {
 
   const handleDownload = async () => {
     try {
-      const response = await axios.get(`http://localhost:4000/download-mp4/${postInfo._id}`, {
+      const response = await axios.get(`https://ninejaback.onrender.com/download-mp4/${postInfo._id}`, {
         responseType: 'blob',
       });
 
@@ -69,7 +69,7 @@ export default function PostPage() {
         <time>{formatISO9075(new Date(postInfo.createdAt))}</time>
       </div>
       <div className="image">
-        <img src={`http://localhost:4000/${postInfo.cover}`} alt="" />
+        <img src={`https://ninejaback.onrender.com/${postInfo.cover}`} alt="" />
       </div>
       <div className="content" dangerouslySetInnerHTML={{ __html: postInfo.content }} />
       <button className="download_btn" onClick={handleDownload}>Download MP4</button>
@@ -79,7 +79,7 @@ export default function PostPage() {
           {relatedPosts.map(relatedPost => (
             <div key={relatedPost._id} className="related-post-item">
               <Link to={`/post/${relatedPost._id}`}>
-                <img src={`http://localhost:4000/${relatedPost.cover}`} alt="" />
+                <img src={`https://ninejaback.onrender.com/${relatedPost.cover}`} alt="" />
                 <h3>{relatedPost.title}</h3>
               </Link>
             </div>

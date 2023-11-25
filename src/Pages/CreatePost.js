@@ -45,7 +45,7 @@ export default function CreatePost() {
         data.append('category', selectedCategory);
     
         try {
-            const response = await axios.post('http://localhost:4000/post', data, {
+            const response = await axios.post('https://ninejaback.onrender.com/post', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -65,7 +65,7 @@ export default function CreatePost() {
         // Fetch existing categories from the server
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://localhost:4000/categories');
+                const response = await axios.get('https://ninejaback.onrender.com/categories');
                 setCategories(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error.response); 

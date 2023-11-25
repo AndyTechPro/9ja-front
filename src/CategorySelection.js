@@ -5,7 +5,7 @@ const CategorySelection = ({ onSelectCategory, activeCategory }) => {
 
   useEffect(() => {
     // Fetch categories when the component mounts
-    fetch('http://localhost:4000/categories')
+    fetch('https://ninejaback.onrender.com/categories')
       .then(response => response.json())
       .then(data => setCategories(data))
       .catch(error => console.error(error));

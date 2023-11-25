@@ -8,7 +8,7 @@ export default function Post({_id,title,cover,createdAt}) {
       <div className='Post_card'>
       <Link to={`/post/${_id}`} className='post_card_link'>
                   <div>
-                  <img src={`http://localhost:4000/${cover}`} alt="cover" />
+                  <img src={`https://ninejaback.onrender.com/${cover}`} alt="cover" />
                   </div>
                   <div>
                   <h3 className='post_card_title'>{title}</h3>

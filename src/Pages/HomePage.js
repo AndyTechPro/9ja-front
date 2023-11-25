@@ -21,7 +21,7 @@ export default function HomePage() {
     }
 
     const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
-    const response = await fetch(`http://localhost:4000/?page=${nextPage}${categoryParam}`);
+    const response = await fetch(`https://ninejaback.onrender.com/?page=${nextPage}${categoryParam}`);
     const data = await response.json();
 
     setPosts((prevPosts) => [...prevPosts, ...data.data]);
@@ -36,7 +36,7 @@ export default function HomePage() {
 
     // Fetch posts based on the selected category
     const categoryParam = category ? `&category=${category}` : '';
-    fetch(`http://localhost:4000/?page=1${categoryParam}`)
+    fetch(`https://ninejaback.onrender.com/?page=1${categoryParam}`)
       .then(response => response.json())
       .then(data => {
         setPosts(data.data);
@@ -48,7 +48,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
-    fetch(`http://localhost:4000/?page=1${categoryParam}`)
+    fetch(`https://ninejaback.onrender.com/?page=1${categoryParam}`)
         .then(response => response.json())
         .then(data => {
             if (data.error) {
