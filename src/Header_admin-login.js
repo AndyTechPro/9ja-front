@@ -6,6 +6,7 @@ export default function Header_Adminlogin() {
   const { setUserInfo, userInfo } = useContext(UserContext);
 
   useEffect(() => {
+    console.log('Fetching profile...');
     fetch('https://ninejaback.onrender.com/profile', {
       credentials: 'include',
       headers: {
@@ -19,6 +20,7 @@ export default function Header_Adminlogin() {
         return response.json();
       })
       .then(userInfo => {
+        console.log('Profile received:', userInfo);
         setUserInfo(userInfo);
       })
       .catch(error => {
