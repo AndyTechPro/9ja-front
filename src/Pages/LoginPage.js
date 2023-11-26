@@ -19,14 +19,16 @@ export default function LoginPage() {
             });
     
             if (response.ok) {
-                response.json().then(userInfo => {
-                    setUserInfo(userInfo);
+                response.json().then(data => {
+                    console.log('Received Token:', data.token); // adjust this based on your response structure
+                    setUserInfo(data);
                     setRedirect(true);
                 });
             } else {
                 console.error('Login failed:', response.statusText);
                 alert('Login failed. Please check your credentials.');
             }
+            
             
         } 
         
