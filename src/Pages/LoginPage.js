@@ -22,10 +22,12 @@ export default function LoginPage() {
                 response.json().then(userInfo => {
                     setUserInfo(userInfo);
                     setRedirect(true);
-                })
+                });
             } else {
-                alert('wrong credentials');
+                console.error('Login failed:', response.statusText);
+                alert('Login failed. Please check your credentials.');
             }
+            
         } 
         
     if (redirect) {
