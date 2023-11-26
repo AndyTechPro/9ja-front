@@ -6,27 +6,27 @@ export default function Header_Adminlogin() {
   const { setUserInfo, userInfo } = useContext(UserContext);
 
   useEffect(() => {
-    console.log('Fetching profile...');
     fetch('https://ninejaback.onrender.com/profile', {
-      credentials: 'include',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json',
+        },
     })
-      .then(response => {
+    .then(response => {
         if (!response.ok) {
-          throw new Error('Unauthorized');
+            throw new Error('Unauthorized');
         }
         return response.json();
-      })
-      .then(userInfo => {
-        console.log('Profile received:', userInfo);
+    })
+    .then(userInfo => {
+        console.log('Received Token:', userInfo.token); // Log the token
         setUserInfo(userInfo);
-      })
-      .catch(error => {
+    })
+    .catch(error => {
         console.error('Profile request failed:', error);
-      });
-  }, []);
+    });
+}, []);
+
 
   function logout() {
     fetch('https://ninejaback.onrender.com/logout', {
