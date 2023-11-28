@@ -2,17 +2,30 @@ import { useContext, useEffect} from "react";
 import {Link} from "react-router-dom";
 import { UserContext } from "./UserContext";
 
-export default function Header_Adminlogin(){
-    const {setUserInfo,userInfo} = useContext(UserContext);
-    useEffect(() => {
-      fetch(`https://ninejaback.onrender.com/profile`, {
-        credentials: "include",
-      }).then(response => {
-        response.json().then(userInfo => {
+export default function Header_Adminlogin() {
+  const { setUserInfo, userInfo } = useContext(UserContext);
+
+  useEffect(() => {
+      fetch('https://ninejaback.onrender.com/profile', {
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      })
+      .then(response => {
+          if (!response.ok) {
+              throw new Error('Unauthorized');
+          }
+          return response.json();
+      })
+      .then(userInfo => {
           setUserInfo(userInfo);
-        });
+      })
+      .catch(error => {
+          console.error('Profile request failed:', error);
       });
-    }, []);
+  }, [setUserInfo]);
+        
   
     function logout() {
       fetch('https://ninejaback.onrender.com/logout', {
