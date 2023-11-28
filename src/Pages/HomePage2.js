@@ -44,7 +44,7 @@ export default function HomePage2() {
   };
 
   return (
-    <main className="container">
+    <>
       <h2>Most Viewed Movies</h2>
       <div className="blog-container">
         {posts.length > 0 && posts.map(post => (
@@ -52,6 +52,6 @@ export default function HomePage2() {
         ))}
       </div>
       <LoadMore nextPage={nextPage} loadMore={loadMorePosts} />
-    </main>
+    </>
   );
 }
