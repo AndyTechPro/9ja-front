@@ -3,12 +3,10 @@ import React, { useState } from 'react';
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [searchError, setSearchError] = useState(null);
 
   const handleSearch = async (e) => {
     e.preventDefault();
-
-    // Implement your search logic here
-    // For demonstration, let's assume you have a search endpoint on the server
 
     try {
       const response = await fetch(`https://ninejaback.onrender.com/search?term=${searchTerm}`);
@@ -16,10 +14,12 @@ const Search = () => {
         const data = await response.json();
         setSearchResults(data.results);
       } else {
-        console.error('Search request failed');
+        console.error('Search request failed:', response.status);
+        setSearchError('Failed to fetch search results');
       }
     } catch (error) {
       console.error('Error during search:', error);
+      setSearchError('Failed to fetch search results');
     }
   };
 
@@ -40,18 +40,22 @@ const Search = () => {
           <button type="submit">Search</button>
         </form>
 
-        {/* Display search results */}
-        <div>
-          {searchResults.length > 0 ? (
-            <ul>
-              {searchResults.map((result) => (
-                <li key={result.id}>{result.title}</li>
-              ))}
-            </ul>
-          ) : (
-            <p>No results found.</p>
-          )}
-        </div>
+        {/* Display search results or error */}
+        {searchError ? (
+          <p>{searchError}</p>
+        ) : (
+          <div>
+            {searchResults.length > 0 ? (
+              <ul>
+                {searchResults.map((result) => (
+                  <li key={result.id}>{result.title}</li>
+                ))}
+              </ul>
+            ) : (
+              searchTerm && <p>No results found.</p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
