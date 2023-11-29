@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchResults from './SearchResults';
+import SearchResults from './Pages/SearchResults';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,7 +16,7 @@ const Search = () => {
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data.results);
-        navigate('/search-results'); // Navigate to the search results page
+        navigate('/Pages/SearchResults'); // Navigate to the search results page
       } else {
         console.error('Search request failed:', response.status);
         setSearchError('Failed to fetch search results');
