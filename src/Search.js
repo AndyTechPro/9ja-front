@@ -1,18 +1,23 @@
+// Search.js
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import SearchResults from './SearchResults'; 
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchError, setSearchError] = useState(null);
+  const history = useHistory();
 
   const handleSearch = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://ninejaback.onrender.com/search?term=${encodeURIComponent(searchTerm)}`);
+      const response = await fetch(`https://ninejaback.onrender.com/search?term=${searchTerm}`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data.results);
+        history.push('/search-results'); // Navigate to the search results page
       } else {
         console.error('Search request failed:', response.status);
         setSearchError('Failed to fetch search results');
@@ -39,24 +44,13 @@ const Search = () => {
           />
           <button type="submit">Search</button>
         </form>
-
-        {/* Display search results or error */}
-        {searchError ? (
-          <p>{searchError}</p>
-        ) : (
-          <div>
-            {searchResults.length > 0 ? (
-              <ul>
-                {searchResults.map((result) => (
-                  <li key={result.id}>{result.title}</li>
-                ))}
-              </ul>
-            ) : (
-              searchTerm && <p>No results found.</p>
-            )}
-          </div>
-        )}
       </div>
+      {/* Display search results or error */}
+      {searchError ? (
+        <p>{searchError}</p>
+      ) : (
+        <SearchResults results={searchResults} />
+      )}
     </div>
   );
 };
