@@ -1,7 +1,7 @@
 // Search.js
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import SearchResults from "./Pages/SearchResults";
+import SearchResults from './Pages/SearchResults'; 
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
