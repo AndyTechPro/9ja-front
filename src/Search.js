@@ -1,13 +1,12 @@
-// Search.js
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import SearchResults from './Pages/SearchResults'; 
+import { useNavigate } from 'react-router-dom';
+import SearchResults from './SearchResults';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchError, setSearchError] = useState(null);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -17,7 +16,7 @@ const Search = () => {
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data.results);
-        history.push('/Pages/SearchResults'); // Navigate to the search results page
+        navigate('/search-results'); // Navigate to the search results page
       } else {
         console.error('Search request failed:', response.status);
         setSearchError('Failed to fetch search results');
