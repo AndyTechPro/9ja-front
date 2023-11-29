@@ -12,9 +12,22 @@ const SearchResults = () => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(`/search?term=${term}`);
-        const data = await response.json();
 
-        setSearchResults(data.results || []); // Use an empty array if results is undefined
+        // Check if the response is not successful (status other than 200 OK)
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const contentType = response.headers.get('content-type');
+
+        // Check if the response is JSON
+        if (contentType && contentType.includes('application/json')) {
+          const data = await response.json();
+          setSearchResults(data.results || []); // Use an empty array if results is undefined
+        } else {
+          throw new Error('Invalid response format. Expected JSON.');
+        }
+
         setLoading(false);
       } catch (error) {
         console.error('Error during search:', error);
