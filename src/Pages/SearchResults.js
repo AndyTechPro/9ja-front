@@ -1,20 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-const SearchResults = ({ results }) => {
+const SearchResults = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const term = searchParams.get('term');
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      try {
+        const response = await fetch(`/search?term=${term}`);
+        const data = await response.json();
+
+        setSearchResults(data.results);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error during search:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchSearchResults();
+  }, [term]);
+
+  if (!term) {
+    return <div>No search term provided</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="search-results">
-      <h2>Search Results</h2>
-      <ul>
-        {results.map((result) => (
-          <li key={result._id}>
-            <img src={result.cover} alt={result.title} />
-            <div>
-              <h3>{result.title}</h3>
-              <p>{result.summary}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div>
+      <h2>Search Results for "{term}"</h2>
+      {searchResults.length === 0 ? (
+        <p>No results found</p>
+      ) : (
+        <ul>
+          {searchResults.map((result) => (
+            <li key={result._id}>
+              <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
+              <div>{result.title}</div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
