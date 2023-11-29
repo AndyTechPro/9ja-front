@@ -14,7 +14,7 @@ const SearchResults = () => {
         const response = await fetch(`/search?term=${term}`);
         const data = await response.json();
 
-        setSearchResults(data.results);
+        setSearchResults(data.results || []); // Use an empty array if results is undefined
         setLoading(false);
       } catch (error) {
         console.error('Error during search:', error);
@@ -22,7 +22,11 @@ const SearchResults = () => {
       }
     };
 
-    fetchSearchResults();
+    if (term) {
+      fetchSearchResults();
+    } else {
+      setLoading(false);
+    }
   }, [term]);
 
   if (!term) {
@@ -42,7 +46,7 @@ const SearchResults = () => {
         <ul>
           {searchResults.map((result) => (
             <li key={result._id}>
-              <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
+              <img src={result.image} alt={result.title} style={{ width: '100px', height: '100px' }} />
               <div>{result.title}</div>
             </li>
           ))}
