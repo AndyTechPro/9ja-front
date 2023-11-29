@@ -1,30 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchResults from './Pages/SearchResults';
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchError, setSearchError] = useState(null);
   const navigate = useNavigate();
 
-  const handleSearch = async (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
-
-    try {
-      const response = await fetch(`https://ninejaback.onrender.com/search?term=${searchTerm}`);
-      if (response.ok) {
-        const data = await response.json();
-        setSearchResults(data.results);
-        navigate('/Pages/SearchResults'); // Navigate to the search results page
-      } else {
-        console.error('Search request failed:', response.status);
-        setSearchError('Failed to fetch search results');
-      }
-    } catch (error) {
-      console.error('Error during search:', error);
-      setSearchError('Failed to fetch search results');
-    }
+    navigate(`/search-results?term=${encodeURIComponent(searchTerm)}`);
   };
 
   return (
@@ -44,12 +27,6 @@ const Search = () => {
           <button type="submit">Search</button>
         </form>
       </div>
-      {/* Display search results or error */}
-      {searchError ? (
-        <p>{searchError}</p>
-      ) : (
-        <SearchResults results={searchResults} />
-      )}
     </div>
   );
 };

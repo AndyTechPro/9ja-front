@@ -11,6 +11,7 @@ import CreatePost from './Pages/CreatePost';
 import PostPage from './Pages/PostPage';
 import EditPost from './Pages/EditPost';
 import Footer from './footer';
+import SearchResults from './Pages/SearchResults';
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
            <Footer />
         </main>
         } />
+         <Route path="/search-results" element={<SearchResults />} />
     </Routes>
     </UserContextProvider>
 
