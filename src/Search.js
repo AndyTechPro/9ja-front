@@ -9,7 +9,7 @@ const Search = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`https://ninejaback.onrender.com/search?term=${searchTerm}`);
+      const response = await fetch(`https://ninejaback.onrender.com/search?term=${encodeURIComponent(searchTerm)}`);
       if (response.ok) {
         const data = await response.json();
         setSearchResults(data.results);
