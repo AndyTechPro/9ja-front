@@ -62,7 +62,7 @@ const SearchResults = () => {
         <ul>
           {searchResults.map((result) => (
             <li key={result._id}>
-              <img src={result.image} alt={result.title} style={{ width: '100px', height: '100px' }} />
+              <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
               <div>{result.title}</div>
             </li>
           ))}
