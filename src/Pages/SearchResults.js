@@ -12,6 +12,9 @@ const SearchResults = () => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(`/search?term=${term}`);
+          console.log('Response:', response);
+          const data = await response.json();
+
 
         // Check if the response is not successful (status other than 200 OK)
         if (!response.ok) {
