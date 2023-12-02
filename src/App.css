@@ -176,7 +176,10 @@ header{
 .search_text{
   margin-top: 3rem;
 }
-
+.search_form{
+  width: 100%;
+  display: flex;
+}
 
 .notice-section {
   background-color: #7fc4f3;
@@ -554,6 +557,10 @@ div.post-page div.content p{
 .texts2{
   margin: 0;
   font-size: 1.8rem;
+}
+.image2{
+  width: 250px;
+  height: auto;
 }
 
 footer {
