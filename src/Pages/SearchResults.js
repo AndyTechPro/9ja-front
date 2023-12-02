@@ -7,33 +7,35 @@ const SearchResults = () => {
   const term = searchParams.get('term');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(`/search?term=${term}`);
         console.log('Response:', response);
-  
+
         // Check if the response is in JSON format
         if (!response.ok || response.headers.get('content-type') !== 'application/json') {
           throw new Error('Invalid response format. Expected JSON.');
         }
-  
+
         const data = await response.json();
-  
+
         if (data.message) {
           // Display a message if no results are found
           console.log(data.message);
         }
-  
+
         setSearchResults(data.results || []);
         setLoading(false);
       } catch (error) {
         console.error('Error during search:', error);
+        setError(error.message || 'Error during search');
         setLoading(false);
       }
     };
-  
+
     if (term) {
       fetchSearchResults();
     } else {
@@ -49,6 +51,10 @@ const SearchResults = () => {
     return <div>Loading...</div>;
   }
 
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <div>
       <h2>Search Results for "{term}"</h2>
@@ -58,7 +64,7 @@ const SearchResults = () => {
         <ul>
           {searchResults.map((result) => (
             <li key={result._id}>
-              <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
+              <img src={result.image} alt={result.title} style={{ width: '100px', height: '100px' }} />
               <div>{result.title}</div>
             </li>
           ))}
