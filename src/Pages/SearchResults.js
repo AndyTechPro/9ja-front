@@ -10,33 +10,19 @@ const SearchResults = () => {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-      try {
-        const response = await fetch(`/search?term=${term}`);
-          console.log('Response:', response);
+        try {
+          const response = await fetch(`/search?term=${term}`);
+          console.log('Response:', response); // Log the response content
           const data = await response.json();
-
-
-        // Check if the response is not successful (status other than 200 OK)
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status} - ${response.statusText}`);
+      
+          setSearchResults(data.results || []);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error during search:', error);
+          setLoading(false);
         }
-
-        const contentType = response.headers.get('content-type');
-
-        // Check if the response is JSON
-        if (contentType && contentType.includes('application/json')) {
-          const data = await response.json();
-          setSearchResults(data.results || []); // Use an empty array if results is undefined
-        } else {
-          throw new Error('Invalid response format. Expected JSON.');
-        }
-
-        setLoading(false);
-      } catch (error) {
-        console.error('Error during search:', error);
-        setLoading(false);
-      }
-    };
+      };
+      
 
     if (term) {
       fetchSearchResults();
