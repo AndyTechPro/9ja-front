@@ -60,7 +60,7 @@ const SearchResults = () => {
             <div key={result._id} className="post2">
               <div className="image2">
                 <Link to={`/post/${result._id}`}>
-                  <img src={result.image} alt="img not showing" />
+                  <img src={`/uploads/${result.cover}`} alt="img not showing" />
                 </Link>
               </div>
               <div className="texts2">
