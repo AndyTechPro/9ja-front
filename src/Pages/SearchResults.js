@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 const SearchResults = () => {
   const location = useLocation();
@@ -18,19 +18,14 @@ const SearchResults = () => {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            // Add any other headers if needed
           },
         });
-
-        console.log('Response:', response);
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Data:', data);
-
         setSearchResults(data.results || []);
         setLoading(false);
       } catch (error) {
@@ -63,8 +58,10 @@ const SearchResults = () => {
         <ul>
           {searchResults.map((result) => (
             <li key={result._id}>
-              <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
-              <div>{result.title}</div>
+              <Link to={`/details/${result._id}`}>
+                <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
+                <div>{result.title}</div>
+              </Link>
             </li>
           ))}
         </ul>
@@ -74,3 +71,4 @@ const SearchResults = () => {
 };
 
 export default SearchResults;
+
