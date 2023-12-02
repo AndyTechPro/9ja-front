@@ -10,19 +10,18 @@ const SearchResults = () => {
 
   useEffect(() => {
     const fetchSearchResults = async () => {
-        try {
-          const response = await fetch(`/search?term=${term}`);
-          console.log('Response:', response); // Log the response content
-          const data = await response.json();
-      
-          setSearchResults(data.results || []);
-          setLoading(false);
-        } catch (error) {
-          console.error('Error during search:', error);
-          setLoading(false);
-        }
-      };
-      
+      try {
+        const response = await fetch(`/search?term=${term}`);
+        console.log('Response:', response); // Log the response content
+        const data = await response.json();
+
+        setSearchResults(data.results || []);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error during search:', error);
+        setLoading(false);
+      }
+    };
 
     if (term) {
       fetchSearchResults();
