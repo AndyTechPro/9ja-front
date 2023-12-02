@@ -50,8 +50,8 @@ const SearchResults = () => {
   }
 
   return (
-    <div>
-      <h2>Search Results for "{term}"</h2>
+    <div className='post-page'>
+      <h2 >Search Results for "{term}"</h2>
       {searchResults.length === 0 ? (
         <p>No results found</p>
       ) : (
@@ -60,7 +60,7 @@ const SearchResults = () => {
             <div key={result._id} className="post2">
               <div className="image2">
                 <Link to={`/post/${result._id}`}>
-                  <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
+                  <img src={result.image} alt="img not showing" />
                 </Link>
               </div>
               <div className="texts2">

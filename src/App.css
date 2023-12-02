@@ -332,6 +332,11 @@ div.post-page h1{
   text-align: center;
   margin: 10px 0 20px;
 }
+div.post-page h2{
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 
 div.post-page time{
   font-weight: 400;
