@@ -9,19 +9,29 @@ const SearchResults = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const apiUrl = 'https://ninejaback.onrender.com'; 
+
     const fetchSearchResults = async () => {
       try {
-        const response = await fetch(`/search?term=${term}`);
-        console.log('Response:', response); // Log the entire response object
+        const url = `${apiUrl}/search?term=${term}`;
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            // Add any other headers if needed
+          },
+        });
+
+        console.log('Response:', response);
 
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
-        console.log('Data:', data); // Log the parsed JSON data
+        console.log('Data:', data);
 
-        setSearchResults(data.results || []); // Use an empty array if results is undefined
+        setSearchResults(data.results || []);
         setLoading(false);
       } catch (error) {
         console.error('Error during search:', error);
@@ -53,7 +63,7 @@ const SearchResults = () => {
         <ul>
           {searchResults.map((result) => (
             <li key={result._id}>
-              <img src={result.image} alt={result.title} style={{ width: '100px', height: '100px' }} />
+              <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
               <div>{result.title}</div>
             </li>
           ))}
