@@ -57,13 +57,13 @@ const SearchResults = () => {
       ) : (
         <div className="post">
           {searchResults.map((result) => (
-            <div key={result._id} className="post-item">
-              <div className="image">
+            <div key={result._id} className="post2">
+              <div className="image2">
                 <Link to={`/post/${result._id}`}>
                   <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
                 </Link>
               </div>
-              <div className="texts">
+              <div className="texts2">
                 <Link to={`/post/${result._id}`}>
                   <h2>{result.title}</h2>
                 </Link>
