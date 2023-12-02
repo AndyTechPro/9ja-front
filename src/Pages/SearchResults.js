@@ -12,9 +12,20 @@ const SearchResults = () => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(`/search?term=${term}`);
-        console.log('Response:', response); // Log the response content
+        console.log('Response:', response);
+  
+        // Check if the response is in JSON format
+        if (!response.ok || response.headers.get('content-type') !== 'application/json') {
+          throw new Error('Invalid response format. Expected JSON.');
+        }
+  
         const data = await response.json();
-
+  
+        if (data.message) {
+          // Display a message if no results are found
+          console.log(data.message);
+        }
+  
         setSearchResults(data.results || []);
         setLoading(false);
       } catch (error) {
@@ -22,7 +33,7 @@ const SearchResults = () => {
         setLoading(false);
       }
     };
-
+  
     if (term) {
       fetchSearchResults();
     } else {
