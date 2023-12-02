@@ -55,16 +55,22 @@ const SearchResults = () => {
       {searchResults.length === 0 ? (
         <p>No results found</p>
       ) : (
-        <ul className="post2">
+        <div className="post">
           {searchResults.map((result) => (
-            <li key={result._id}>
-              <Link to={`/post/${result._id}`}>
-                <img className="image2" src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
-                <div className="texts2">{result.title}</div>
-              </Link>
-            </li>
+            <div key={result._id} className="post-item">
+              <div className="image">
+                <Link to={`/post/${result._id}`}>
+                  <img src={result.cover} alt={result.title} style={{ width: '100px', height: '100px' }} />
+                </Link>
+              </div>
+              <div className="texts">
+                <Link to={`/post/${result._id}`}>
+                  <h2>{result.title}</h2>
+                </Link>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
