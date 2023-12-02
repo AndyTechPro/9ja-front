@@ -537,7 +537,7 @@ div.post-page div.content p{
   color: #ffffff;
 }
 
-div.post2{
+.post2{
   display: grid;
   margin-left: 2rem;
   margin-right: 2rem;
@@ -546,7 +546,7 @@ div.post2{
   margin-bottom: 30px;
 }
 
-div.post2 div.texts2{
+.texts2{
   margin: 0;
   font-size: 1.8rem;
 }
