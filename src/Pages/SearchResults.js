@@ -7,31 +7,24 @@ const SearchResults = () => {
   const term = searchParams.get('term');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
         const response = await fetch(`/search?term=${term}`);
-        console.log('Response:', response);
+        console.log('Response:', response); // Log the entire response object
 
-        // Check if the response is in JSON format
-        if (!response.ok || response.headers.get('content-type') !== 'application/json') {
-          throw new Error('Invalid response format. Expected JSON.');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
+        console.log('Data:', data); // Log the parsed JSON data
 
-        if (data.message) {
-          // Display a message if no results are found
-          console.log(data.message);
-        }
-
-        setSearchResults(data.results || []);
+        setSearchResults(data.results || []); // Use an empty array if results is undefined
         setLoading(false);
       } catch (error) {
         console.error('Error during search:', error);
-        setError(error.message || 'Error during search');
         setLoading(false);
       }
     };
@@ -49,10 +42,6 @@ const SearchResults = () => {
 
   if (loading) {
     return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
   }
 
   return (
